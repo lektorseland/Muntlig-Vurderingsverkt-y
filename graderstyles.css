@@ -1,0 +1,10 @@
+.criteria-name:hover {
+    cursor: pointer;
+    color: #3273dc; /* Bulma's primary color for example */
+    background-color: #f5f5f5; /* Light grey background */
+}
+
+.is-bold {
+    font-weight: bold;
+}
+

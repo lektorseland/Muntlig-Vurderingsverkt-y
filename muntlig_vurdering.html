@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bulma.min.css">
+    <link rel="stylesheet" href="graderstyles.css">
+    <title>Grading Tool</title>
+</head>
+
+<body>
+    <section class="hero is-info">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Grading Tool
+                </h1>
+                <h2 class="subtitle">
+                    For oral exams
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preset Selector -->
+    <div class="field">
+        <label class="label">Select Criteria Preset</label>
+        <div class="control">
+            <div class="select">
+                <select title="Preset Selector" id="presetSelector">
+                    <option value="">Select Preset</option>
+                    <option value="course1">Course 1 Preset</option>
+                    <option value="course2">Course 2 Preset</option>
+                    <!-- Additional presets can be added here -->
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabbed interface -->
+    <section class="section">
+        <div class="container">
+            <div class="tabs">
+                <ul>
+                    <li class="is-active" data-tab="1"><a>Grading Criteria</a></li>
+                    <li data-tab="2"><a>Settings</a></li>
+                </ul>
+            </div>
+
+            <!-- Criteria table -->
+            <div id="tab-content-1" class="tab-content">
+                <table class="table is-fullwidth" id="criteriaTable">
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>Weights</th>
+                            <th></th> <!-- For the delete button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Criteria rows will be added here dynamically -->
+                    </tbody>
+                </table>
+                <button class="button is-info" id="addCriteria">Add Criteria</button>
+                <button class="button is-success" id="calculateScore">Calculate Score</button>
+
+                <div class="field">
+                    <label class="label" for="finalScore">Final Score</label>
+                    <div class="control">
+                        <input class="input" type="text" id="finalScore" disabled>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="overrideGrade">Override Grade</label>
+                    <div class="control">
+                        <input class="input" type="text" id="overrideGrade">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="feedback">Feedback</label>
+                    <div class="control">
+                        <textarea class="textarea" id="feedback"></textarea>
+                    </div>
+                </div>
+
+                <button class="button is-primary" id="savePDF">Save as PDF</button>
+                <button class="button is-warning" id="saveSettings">Save Settings</button>
+                <label class="button is-warning" for="loadSettings">Load Settings</label>
+                <input type="file" id="loadSettings" accept=".json">
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="tab-content-2" class="tab-content" style="display: none;">
+            <div class="columns">
+                <!-- Column for Grade Score Settings (A) -->
+                <div class="column" id="gradeAScores">
+                    <h3 class="title is-4">Grade Score Settings (A)</h3>
+                    <p>Set the percentage score each grade represents.</p>
+                    <!-- Grade Score Settings (A) will be added here -->
+                </div>
+
+                <!-- Column for Grade Thresholds (B) -->
+                <div class="column" id="gradeBScores">
+                    <h3 class="title is-4">Grade Thresholds (B)</h3>
+                    <p>Set the lower limit percentage for each grade.</p>
+                    <!-- Grade Threshold Settings (B) will be added here -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script src="graderscripts.js"></script>
+</body>
+
+</html>
