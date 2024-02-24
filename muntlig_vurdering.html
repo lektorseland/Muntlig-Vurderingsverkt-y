@@ -47,34 +47,39 @@
                     <li data-tab="2"><a>Settings</a></li>
                 </ul>
             </div>
-
             <!-- Criteria table -->
             <div id="tab-content-1" class="tab-content">
                 <table class="table is-fullwidth" id="criteriaTable">
                     <thead>
                         <tr>
-                            <th>Criteria</th>
+                            <th>Critera</th>
                             <th>1</th>
                             <th>2</th>
                             <th>3</th>
                             <th>4</th>
                             <th>5</th>
                             <th>6</th>
-                            <th>Weights</th>
-                            <th></th> <!-- For the delete button -->
+                            <th>Weights (1 - 10)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Criteria rows will be added here dynamically -->
                     </tbody>
                 </table>
-                <button class="button is-info" id="addCriteria">Add Criteria</button>
+                <button class="button is-info" id="addCriteria">Click to add critera</button>
                 <button class="button is-success" id="calculateScore">Calculate Score</button>
 
                 <div class="field">
                     <label class="label" for="finalScore">Final Score</label>
                     <div class="control">
                         <input class="input" type="text" id="finalScore" disabled>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="finalGrade">Final Grade</label>
+                    <div class="control">
+                        <input class="input" type="text" id="finalGrade" disabled>
                     </div>
                 </div>
 
