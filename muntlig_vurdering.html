@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bulma.min.css">
     <link rel="stylesheet" href="graderstyles.css">
-    <title>Grading Tool</title>
+    <title>Muntlig vurderingsverktøy</title>
 </head>
 
 <body>
@@ -14,93 +14,102 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Grading Tool
+                    Vurderingsverktøy
                 </h1>
                 <h2 class="subtitle">
-                    For oral exams
+                    for muntlig vurdering
                 </h2>
             </div>
         </div>
     </section>
-
-    <!-- Preset Selector -->
-    <div class="field">
-        <label class="label">Select Criteria Preset</label>
-        <div class="control">
-            <div class="select">
-                <select title="Preset Selector" id="presetSelector">
-                    <option value="">Select Preset</option>
-                    <option value="course1">Course 1 Preset</option>
-                    <option value="course2">Course 2 Preset</option>
-                    <!-- Additional presets can be added here -->
-                </select>
-            </div>
-        </div>
-    </div>
 
     <!-- Tabbed interface -->
     <section class="section">
         <div class="container">
             <div class="tabs">
                 <ul>
-                    <li class="is-active" data-tab="1"><a>Grading Criteria</a></li>
-                    <li data-tab="2"><a>Settings</a></li>
+                    <li class="is-active" data-tab="1"><a>Vurdering</a></li>
+                    <li data-tab="2"><a>Innstillinger</a></li>
+                    <li data-tab="3"><a>Om verktøyet</a></li>
                 </ul>
             </div>
+
+            <!-- Criteria Matrix and other elements follow here -->
             <!-- Criteria table -->
             <div id="tab-content-1" class="tab-content">
+                <div class="field is-grouped is-grouped-multiline">
+                    <div class="control column is-one-fourth">
+                        <label for="studentName" class="label">Elevens navn:</label>
+                        <input class="input" type="text" id="studentName" placeholder="Hva er elevens navn?">
+                    </div>
+
+                    <div class="control column is-one-fourth">
+                        <label for="course" class="label">Fag:</label>
+                        <input class="input" type="text" id="course" placeholder="Hvilket fag vurderes?">
+                    </div>
+
+                    <div class="control column is-one-fourth">
+                        <label for="evaluation" class="label">Vurdering i:</label>
+                        <input class="input" type="text" id="evaluation" placeholder="Hvilket tema/kapitler vurderes?">
+                    </div>
+                </div>
+                <hr>
                 <table class="table is-fullwidth" id="criteriaTable">
                     <thead>
                         <tr>
-                            <th>Critera</th>
+                            <th>Vurderingskriterie</th>
                             <th>1</th>
                             <th>2</th>
                             <th>3</th>
                             <th>4</th>
                             <th>5</th>
                             <th>6</th>
-                            <th>Weights (1 - 10)</th>
+                            <th>Vekting (1 - 10)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Criteria rows will be added here dynamically -->
                     </tbody>
                 </table>
-                <button class="button is-info" id="addCriteria">Click to add critera</button>
-                <button class="button is-success" id="calculateScore">Calculate Score</button>
+                <button class="button is-info" id="addCriteria">Legg til kriterie</button>
+                <button class="button is-success" id="calculateScore">Kalkuler sluttresultat</button>
+                <button class="button is-danger" id="clearForm">Tilbakestill skjema</button>
 
+
+                <hr>
                 <div class="field">
-                    <label class="label" for="finalScore">Final Score</label>
+                    <label class="label" for="finalScore">Sluttresultat</label>
                     <div class="control">
                         <input class="input" type="text" id="finalScore" disabled>
                     </div>
                 </div>
 
                 <div class="field">
-                    <label class="label" for="finalGrade">Final Grade</label>
+                    <label class="label" for="finalGrade">Kalkulert karakter</label>
                     <div class="control">
                         <input class="input" type="text" id="finalGrade" disabled>
                     </div>
                 </div>
 
                 <div class="field">
-                    <label class="label" for="overrideGrade">Override Grade</label>
+                    <label class="label" for="overrideGrade">Lærers karakter</label>
                     <div class="control">
                         <input class="input" type="text" id="overrideGrade">
                     </div>
                 </div>
 
                 <div class="field">
-                    <label class="label" for="feedback">Feedback</label>
+                    <label class="label" for="feedback">Tilbakemelding</label>
                     <div class="control">
                         <textarea class="textarea" id="feedback"></textarea>
                     </div>
                 </div>
 
-                <button class="button is-primary" id="savePDF">Save as PDF</button>
-                <button class="button is-warning" id="saveSettings">Save Settings</button>
-                <label class="button is-warning" for="loadSettings">Load Settings</label>
-                <input type="file" id="loadSettings" accept=".json">
+                <button class="button is-primary" id="savePDF">Lagre som PDF</button>
+                <button class="button is-warning" id="exportSettings">Eksporter oppsett</button>
+                <!-- Hidden file input for importing settings -->
+                <input type="file" id="importSettings" accept=".json" style="display: none;">
+                <label class="button is-warning" for="importSettings">Importer oppsett</label>
             </div>
         </div>
 
@@ -109,21 +118,85 @@
             <div class="columns">
                 <!-- Column for Grade Score Settings (A) -->
                 <div class="column" id="gradeAScores">
-                    <h3 class="title is-4">Grade Score Settings (A)</h3>
-                    <p>Set the percentage score each grade represents.</p>
+                    <h3 class="title is-4">Karakter som prosentverdi</h3>
+                    <p>Juster hvilken prosentverdi hver karakter svarer til.</p>
                     <!-- Grade Score Settings (A) will be added here -->
                 </div>
 
                 <!-- Column for Grade Thresholds (B) -->
                 <div class="column" id="gradeBScores">
-                    <h3 class="title is-4">Grade Thresholds (B)</h3>
-                    <p>Set the lower limit percentage for each grade.</p>
+                    <h3 class="title is-4">Karaktergrenser</h3>
+                    <p>Juster nedre prosentgrenser for hver karakter.</p>
                     <!-- Grade Threshold Settings (B) will be added here -->
                 </div>
             </div>
         </div>
 
+        <div id="tab-content-3" class="tab-content" style="display: none;">
+            <section class="section">
+                <div class="container">
+                    <h1 class="title">Grading Tool Manual</h1>
+
+                    <h2 class="subtitle">Introduksjon</h2>
+                    <div class="content">
+                        <p>Dette karakterverktøyet er utviklet for å lette vurderingsprosessen for muntlige vurdering,
+                            slik at lærere effektivt kan vurdere elever basert på tilpassbare kriterier, beregne
+                            poengsum og generere en sammendrags-PDF for journalføring og tilbakemelding til eleven.</p>
+                    </div>
+
+                    <h2 class="subtitle">Funksjoner og hvordan du bruker dem</h2>
+                    <div class="content">
+                        <h3>Skrive inn informasjon om vurderingen</h3>
+                        <p>Rett over kriteriematrisen finner du inntastingsbokser for <strong>Elevens navn</strong>,
+                            <strong>Fag</strong> og <strong>Vurdering i</strong>. Fyll ut disse for å tilpasse
+                            karakterarket. Ingen informasjon lagres i verktøyet, i tråd med GDPR.</p>
+
+                        <h3>Vurdere eleven</h3>
+                        <ul>
+                            <li><strong>Vurderingsmatrise:</strong> Kjernen i verktøyet, der du tildeler poeng basert på
+                                de valgte forhåndsinnstilte eller egendefinerte kriteriene.</li>
+                            <li><strong>Legg til kriterier:</strong> Klikk "Legg til kriterie" for å introdusere nye
+                                vurderingskriterier. Skriv inn kriterienavn og juster vekting om nødvendig.</li>
+                            <li><strong>Beregn poengsum:</strong> Etter karaktersetting, klikk "Kalkuler poengsum" for å
+                                se samlet prosentresultat og karakteren.</li>
+                        </ul>
+
+                        <h3>Justere innstillinger</h3>
+                        <p>Naviger til <strong>Innstillinger</strong>-fanen for å justere innstillingene for
+                            kalkuleringen av resultatet for en mer tilpasset vurderingsprosess.</p>
+
+                        <h3>Lagring og tilbakestilling av skjema</h3>
+                        <ul>
+                            <li><strong>Lagre som PDF:</strong> Når karaktersettingen er fullført, trykk på denne
+                                knappen for å generere et PDF-dokument. Filnavnet er konstruert fra studentnavnet, emnet
+                                og evalueringstypen. Hvis disse feltene er tomme, er standardnavnet "Vurdering.pdf".
+                            </li>
+                            <li><strong>Tilbakestill skjema:</strong> For å tilbakestille skjemaet, inkludert
+                                elevinformasjon, valg av kriterier og tilbakemelding, klikk på "Tilbakestill skjema". En
+                                bekreftelsesmelding sikrer at utilsiktet tap av data forhindres.</li>
+                        </ul>
+
+                        <h3>Eksportere og importere oppsett</h3>
+                        <p><strong>Eksporter oppsett:</strong> Lagre dine nåværende innstillinger og kriterier i en
+                            JSON-fil for fremtidig bruk eller deling.</p>
+                        <p><strong>Importer oppsett:</strong> Last inn innstillinger fra en tidligere lagret JSON-fil
+                            for raskt å konfigurere verktøyet i henhold til dine eller en kollegas preferanser.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
     </section>
+
+    <footer class="footer is-info">
+        <div class="content has-text-centered">
+            <p>
+                &copy Lektor Seland, 2024
+            </p>
+        </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <script src="graderscripts.js"></script>
 </body>
 
